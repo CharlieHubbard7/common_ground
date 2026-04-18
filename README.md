@@ -4,7 +4,7 @@ Built at the Claude Builder Hackathon · April 2026
 📌 What We Built
 Common Ground is an AI-powered civic dialogue tool that turns any political disagreement into a structured, readable debate — two Claude agents argue opposite sides turn by turn, then a third acts as a nonpartisan moderator who finds the shared human values beneath the surface conflict.
 
-Live Demo: [link]
+Live Demo: [[link]](https://commonground-blue.vercel.app/)
 Video Walkthrough: [link]
 Claude Integration Doc: [🔗 View Google Doc](https://docs.google.com/document/d/1FS82zqEbO0KZZJM_ojo8Ighfollr4Pnb93XpZVPYylo/edit?tab=t.0)
 
