@@ -6,7 +6,7 @@ Common Ground is an AI-powered civic dialogue tool that turns any political disa
 
 Live Demo: [link]
 Video Walkthrough: [link]
-Claude Integration Doc: 🔗 View Google Doc
+Claude Integration Doc: [🔗 View Google Doc](https://docs.google.com/document/d/1FS82zqEbO0KZZJM_ojo8Ighfollr4Pnb93XpZVPYylo/edit?tab=t.0)
 
 ⚡ Features
 Turn-by-turn AI debate — Debater A argues, you read, click Continue, Debater B responds. Two full rounds (opening statements + rebuttals) paced so you can actually absorb each argument
