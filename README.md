@@ -1,97 +1,43 @@
-# 🤖 Common Ground — Claude Hackathon Submission
+# Common Ground
 
-> Built at the Claude Builder Hackathon · April 2026
+Built for the Claude Builder Hackathon, April 2026.
 
----
+Type in two opposing positions on a political question. Two Claude agents debate them over two rounds (an opening statement and a rebuttal each). A third agent then writes a moderator's report: the strongest case for each side, the values both sides share, and where they actually disagree.
 
-## 📌 What We Built
+[Live demo](https://commonground-blue.vercel.app/) · [Video walkthrough](https://drive.google.com/file/d/1IsG_Ywn7i_YYj95Qau-pBt1Z7l95pMaB/view?usp=sharing) · [Write-up on the Claude integration](https://docs.google.com/document/d/1FS82zqEbO0KZZJM_ojo8Ighfollr4Pnb93XpZVPYylo/edit?tab=t.0)
 
-Common Ground is an AI-powered civic dialogue tool that turns any political disagreement into a structured, readable debate — two Claude agents argue opposite sides turn by turn, then a third acts as a nonpartisan moderator who finds the shared human values beneath the surface conflict.
+## How it works
 
-**Live Demo:** [commonground-blue.vercel.app](https://commonground-blue.vercel.app/)  
-**Video Walkthrough:** [Watch on Google Drive](https://drive.google.com/file/d/1IsG_Ywn7i_YYj95Qau-pBt1Z7l95pMaB/view?usp=sharing)  
-**Claude Integration Doc:** [🔗 View Google Doc](https://docs.google.com/document/d/1FS82zqEbO0KZZJM_ojo8Ighfollr4Pnb93XpZVPYylo/edit?tab=t.0)
+The debate runs one turn at a time:
 
----
+1. Debater A's opening, then Debater B's opening.
+2. Debater A's rebuttal to B's opening, then B's rebuttal to A's opening.
+3. The moderator reads all four turns and writes the report.
 
-## ⚡ Features
+The two debaters share a system prompt and are given opposite positions. Each reasons in `<thinking>` tags before answering in 3–4 sentences. Responses stream from the Messages API, and the reasoning is shown in a collapsible panel next to each argument, so you can see how the argument was built.
 
-- **Turn-by-turn AI debate** — Debater A argues, you read, click Continue, Debater B responds. Two full rounds (opening statements + rebuttals) paced so you can actually absorb each argument
-- **Live audience reaction meter** — A real-time bar that drifts toward whichever agent is currently speaking, giving the debate a live-TV feel
-- **Reasoning transparency** — Every agent's raw `<thinking>` stream is captured and shown in a collapsible monospace feed, so you can read how the AI formed its argument, not just what it said
-- **Clash detection** — Automatically flags when both debaters invoke the same terrain (safety, rights, economy, etc.) mid-debate
-- **Moderator's Report** — A structured six-section analysis: overview, steelmanned case for each side, shared values, the genuine point of disagreement, and why it matters for democracy
-- **Topic presets** — Gun control, immigration, healthcare, climate, education — one click to populate both sides
+The moderator's report always has the same six sections:
+- overview;
+- the strongest case for A;
+- the strongest case for B;
+- where they agree;
+- the real point of disagreement;
+- why it matters.
 
----
+The UI parses the report into separate panels by its `##` headings.
 
-## 🛠️ Tech Stack
+Smaller pieces:
+- **Topic presets:** gun control, immigration, healthcare, climate and education.
+- **Shared-ground tags:** a simple keyword check that highlights when both rebuttals touch the same theme (safety, rights, the economy, and so on).
 
-| Layer | Technology |
-|-------|------------|
-| Frontend | React + Vite |
-| Styling | Tailwind CSS + inline styles |
-| AI | Claude API (`claude-sonnet-4-20250514`) |
-| Backend | None — Anthropic API called directly from browser |
-| Deployment | Vercel |
+## Stack
 
----
-
-## 🤖 How We Used Claude
-
-Claude was deeply integrated into both the development workflow and the product itself.
-
-### In Development
-
-1. **Ideation** — Used Claude.ai to brainstorm the civic dialogue concept and its connection to *Machines of Loving Grace*
-2. **Prompt Engineering** — Prompted Claude to generate optimized Claude Code master prompts
-3. **Claude Code** — Shipped the entire codebase via Claude Code using those master prompts
-
-### In the Product
-
-The Claude API powers three parallel agents with distinct roles:
-
-- **Debater A & B** — Given the same system prompt but opposite positions, each agent uses chain-of-thought reasoning (`<thinking>` tags) to explore multiple argument frames before delivering a 3–4 sentence argument. Rebuttal rounds pass the opponent's prior output as context so agents genuinely respond to each other.
-- **Moderator** — A third agent receives the full four-turn transcript and produces a structured six-section report using role prompting ("nonpartisan political analyst") and explicit `##` section headers for clean parsing.
-
-**Model:** `claude-sonnet-4-20250514`
-
-**Creative prompting techniques:**
-- Extended chain-of-thought via explicit `<thinking>` tags, streamed live to the UI
-- Role prompting (passionate debater vs. nonpartisan analyst)
-- Structured output with `##` section headers parsed client-side into formatted report sections
-- Multi-agent context passing — each agent's concluded output is injected into the next agent's user message
-
-> 📸 **Full breakdown with screenshots:** [View Claude Integration Doc →](https://docs.google.com/document/d/1FS82zqEbO0KZZJM_ojo8Ighfollr4Pnb93XpZVPYylo/edit?tab=t.0)
-
----
-
-## 🚀 Getting Started
+- React and Vite, deployed on Vercel.
+- Claude (`claude-sonnet-4-20250514`), called straight from the browser. There's no backend: each user pastes their own Anthropic API key, which stays in memory and isn't stored.
 
 ```bash
-# Clone the repo
-git clone https://github.com/YOUR_USERNAME/common-ground.git
-cd common-ground
-
-# Install dependencies
 npm install
-
-# Run locally (API key entered in the UI at runtime — no .env needed)
 npm run dev
 ```
 
-> Your Anthropic API key is entered directly in the app's UI and never stored. All requests go to the Anthropic API from your browser.
-
----
-
-## 👥 Team
-
-| Name | Role |
-|------|------|
-| Charlie Hubbard | Product / Frontend / Prompting |
-
----
-
-## 📄 License
-
-MIT
+Built by Charlie Hubbard, using Claude Code.
